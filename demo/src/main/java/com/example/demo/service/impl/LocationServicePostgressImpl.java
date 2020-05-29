@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,8 @@ public class LocationServicePostgressImpl implements LocationService {
 
     @Override
     public List<Location> fetchLocations() {
-        return locationRepository.findAll();
+        List<Location> locations = locationRepository.findAll();
+        return locations;
     }
 
     @Override
@@ -37,7 +39,16 @@ public class LocationServicePostgressImpl implements LocationService {
 
     @Override
     public Location updateLocation(Location location) {
-        return locationRepository.save(location);
+        Optional <Location> locationOpt =  fetchLocationById(location.getId());
+        if ( locationOpt.isPresent() ) {
+            Location locationEnity = locationOpt.get();
+            locationEnity.setName(location.getName());
+            locationEnity.setMetro(location.getMetro());
+            locationRepository.save(locationEnity);
+            return locationEnity;
+        } else {
+            throw new IllegalArgumentException("Location doesn't exist");
+        }
     }
 
     @Override

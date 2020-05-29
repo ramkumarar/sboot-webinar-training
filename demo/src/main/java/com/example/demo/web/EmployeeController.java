@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor //(onConstructor=@__(@Autowired))
 public class EmployeeController {
 
-    @Qualifier("employeesv1")
+    @Qualifier("employeesv2")
     private final EmployeeService employeeService;
 
     @GetMapping

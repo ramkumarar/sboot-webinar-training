@@ -6,6 +6,7 @@ import com.example.demo.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,8 @@ public class LocationPGController {
 
     @GetMapping("")
     List<Location> locations(){
-        return locationService.fetchLocations();
+        List<Location> locations = locationService.fetchLocations();
+        return locations;
     }
 
     @GetMapping("/{id}")
